@@ -1,58 +1,17 @@
 //  Statistics_Calculation
 //  Avaliable on Github
 //  Created by Paul-1437 on 10/26/22.
-//  The only thing you need to de is input all data(must be interger) with space or enter, finish with input 0.5
+//  The only thing you need to de is input all data(must be positive interger) with space or enter, finish with input -1
 
 #include <iostream>
 #include <cstring>
 using namespace std;
-/*
-int m3(int s[1000]){
-    int r=0,num=0,mode=-1;
-    int min=-1,max=1;
-    bool ms=0;
-    for (int i=0;i<1001;i++){
-        if (s[i]) {
-            if (ms==0) {
-                min=i;
-                ms=1;
-            }
-            max=i;
-        }
-        if (s[i]>mode) {
-            mode=i;
-        }
-        r+=s[i]*i;
-        num+=s[i];
-    }
-    int mbk=max;
-    for (int i=min;i<=max;){
-        if (s[i]==0) {
-            continue;
-        }
-        mbk--;
-        i++;
-        if (mbk==i) {
-            cout<<"Median:"<<mbk<<endl;
-            break;
-        }
-        if (mbk<i) {
-            cout<<"Median:"<<mbk<<"and"<<i<<endl;
-            break;
-        }
-    }
-    cout<<"Mean:"<<r/num<<endl;
-    cout<<"Mode:"<<mode<<endl;
-    cout<<"Range:"<<min<<"to"<<max<<endl;
-    return 0;
-}
- */
 int main(int argc, const char * argv[]) {
-    int s[50001]={0};
+    int s[100001]={0};
     for (int i=0;1;i++){
         int n;
         cin>>n;
-        if (n==0.5) {
+        if (n==-1) {
             break;
         }
         s[n]+=1;
@@ -60,43 +19,57 @@ int main(int argc, const char * argv[]) {
     int r=0,num=0,mode=-1;
     int min=-1,max=1;
     bool ms=0;
-    for (int i=0;i<50001;i++){
-        if (s[i]) {
-            if (ms==0) {
-                min=i;
-                ms=1;
-            }
-            max=i;
+    for (int i=0;i<100001;i++){
+        if (s[i]==0) {
+            continue;
         }
+        if (ms==0) {
+            min=i;
+            ms=1;
+        }
+        max=i;
         if (s[i]>s[mode]) {
             mode=i;
         }
         r+=s[i]*i;
         num+=s[i];
     }
-    int mbk=max;
-    for (int i=min;i<=max&&mbk>0;){
-        while (s[i]==0) {
-            i++;
+    int sorted[1000],sortf=0;
+    for (int i=0;i<=max;i++){
+        for (int j=s[i];j>0;j--){
+            sorted[sortf]=i;
+            sortf++;
         }
-        while (s[mbk]==0) {
-            mbk--;
-        }
-        if (mbk==i&&s[mbk]) {
-            cout<<"Median:"<<mbk<<endl;
-            break;
-        }
-        if (mbk<i&&s[i]&&s[mbk]) {
-            cout<<"Median:"<<mbk<<" and "<<i<<endl;
-            break;
-        }
-        mbk--;
-        i++;
     }
-    double me=r/num;
+    double me=double(r)/double(num);
     printf("Mean:%2f\n",me);
+    for (int i=0;i<num;i++){
+        if (i==sortf) {
+            cout<<"Median:"<<sorted[i]<<endl;
+            break;
+        }
+        if (i>sortf) {
+            cout<<"Median:"<<sorted[i]<<" and "<<sorted[sortf]<<endl;
+            break;
+        }
+        sortf--;
+        if (i==sortf) {
+            cout<<"Median:"<<sorted[i]<<endl;
+            break;
+        }
+        if (i>sortf) {
+            cout<<"Median:"<<(sorted[i]+sorted[sortf])/2<<' ';
+            cout<<sorted[i]<<" and "<<sorted[sortf]<<endl;
+            break;
+        }
+    }
     cout<<"Mode:"<<mode<<endl;
     cout<<"Range:"<<min<<" to "<<max<<','<<max-min<<endl;
-    cout<<r<<endl<<num<<endl;
+    cout<<r<<','<<num<<endl;
+    for (int i=min; i<=max; i++){
+        if (s[i]>0) {
+            cout<<i<<' '<<s[i]<<endl;
+        }
+    }
     return 0;
 }
