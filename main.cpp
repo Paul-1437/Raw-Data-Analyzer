@@ -41,8 +41,13 @@ int main(int argc, const char * argv[]) {
             sortf++;
         }
     }
+    for (int i=min; i<=max; i++){
+        if (s[i]>0) {
+            cout<<i<<' '<<s[i]<<endl;
+        }
+    }
     double me=double(r)/double(num);
-    printf("Mean:%2f\n",me);
+    printf("Mean: %2f\n",me);
     int median;
     if (sortf%2==0) {
         median=sorted[sortf/2]+sorted[sortf/2-1];
@@ -50,14 +55,9 @@ int main(int argc, const char * argv[]) {
     }
     else
         median=sorted[sortf/2];
-    cout<<"Median:"<<median<<endl;
-    cout<<"Mode:"<<mode<<endl;
-    cout<<"Range:"<<min<<" to "<<max<<','<<max-min<<endl;
-    cout<<r<<','<<num<<endl;
-    for (int i=min; i<=max; i++){
-        if (s[i]>0) {
-            cout<<i<<' '<<s[i]<<endl;
-        }
-    }
+    cout<<"Median: "<<median<<endl;
+    cout<<"Mode: "<<mode<<endl;
+    cout<<"Range: "<<min<<" to "<<max<<','<<max-min<<endl;
+    cout<<"Sum: "<<r<<endl<<"Amount: "<<num<<endl;
     return 0;
 }
