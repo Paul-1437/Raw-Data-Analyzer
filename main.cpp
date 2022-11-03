@@ -43,26 +43,14 @@ int main(int argc, const char * argv[]) {
     }
     double me=double(r)/double(num);
     printf("Mean:%2f\n",me);
-    for (int i=0;i<num;i++){
-        if (i==sortf) {
-            cout<<"Median:"<<sorted[i]<<endl;
-            break;
-        }
-        if (i>sortf) {
-            cout<<"Median:"<<sorted[i]<<" and "<<sorted[sortf]<<endl;
-            break;
-        }
-        sortf--;
-        if (i==sortf) {
-            cout<<"Median:"<<sorted[i]<<endl;
-            break;
-        }
-        if (i>sortf) {
-            cout<<"Median:"<<(sorted[i]+sorted[sortf])/2<<' ';
-            cout<<sorted[i]<<" and "<<sorted[sortf]<<endl;
-            break;
-        }
+    int median;
+    if (sortf%2==0) {
+        median=sorted[sortf/2]+sorted[sortf/2-1];
+        median/=2;
     }
+    else
+        median=sorted[sortf/2];
+    cout<<"Median:"<<median<<endl;
     cout<<"Mode:"<<mode<<endl;
     cout<<"Range:"<<min<<" to "<<max<<','<<max-min<<endl;
     cout<<r<<','<<num<<endl;
