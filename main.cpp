@@ -48,16 +48,40 @@ int main(int argc, const char * argv[]) {
     }
     double me=double(r)/double(num);
     printf("Mean: %2f\n",me);
-    int median;
+    
+    int median,q1,q3,IQR;
     if (sortf%2==0) {
         median=sorted[sortf/2]+sorted[sortf/2-1];
         median/=2;
+        if (sortf%4==0) {
+            q1=sorted[sortf/4]+sorted[sortf/4-1];
+            q1/=2;
+            q3=sorted[sortf/4*3]+sorted[sortf/4*3-1];
+            q3/=2;
+            IQR=q3-q1;
+        }
+        else{
+            q1=sorted[sortf/4];
+            q3=sorted[sortf/4*3];
+            IQR=q3-q1;
+            
+        }
     }
-    else
+    else{
+        median=sortf/2;
+        q1=median/2;
+        q3=median+q1;
+        q1=sorted[q1];
+        q3=sorted[q3];
         median=sorted[sortf/2];
+        IQR=q3-q1;
+    }
+    
     cout<<"Median: "<<median<<endl;
     cout<<"Mode: "<<mode<<endl;
-    cout<<"Range: "<<min<<" to "<<max<<','<<max-min<<endl;
-    cout<<"Sum: "<<r<<endl<<"Amount: "<<num<<endl;
+    cout<<"Range: "<<max-min<<','<<min<<" to "<<max<<endl;
+    cout<<"Q1: "<<q1<<endl<<"Q3: "<<q3<<endl;
+    cout<<"IQR: "<<IQR<<endl;
+    cout<<"Sum: "<<r<<endl<<"Amount(n): "<<num<<endl;
     return 0;
 }
